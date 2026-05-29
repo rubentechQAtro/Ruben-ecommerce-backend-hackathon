@@ -1,6 +1,6 @@
 # E-commerce Backend
 
-Backend de e-commerce desarrollado para hackathon final. Implementa autenticación JWT, CRUD de productos, carrito de compras, órdenes, categorías y pasarela de pagos simulada.
+Backend de e-commerce desarrollado para hackathon final. Implementa autenticación JWT, CRUD de productos, carrito de compras, órdenes, categorías y pasarela de pagos simulada(Strype pedia autentificacion de empresa)
 
 ## Tecnologías
 - Node.js + Express
