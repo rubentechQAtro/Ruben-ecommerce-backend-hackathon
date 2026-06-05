@@ -1,4 +1,4 @@
-const orderService = require('../services/orderService')
+ const orderService = require('../services/orderService')
 
 const createOrder = async (req, res) => {
   try {
@@ -18,4 +18,23 @@ const getMyOrders = async (req, res) => {
   }
 }
 
-module.exports = { createOrder, getMyOrders }
+const updateStatus = async (req, res) => {
+  try {
+    const { status } = req.body
+    const order = await orderService.updateStatus(parseInt(req.params.id), status)
+    res.json(order)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+const getPurchasedProducts = async (req, res) => {
+  try {
+    const products = await orderService.getPurchasedProducts(req.user.userId)
+    res.json(products)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
+module.exports = { createOrder, getMyOrders, updateStatus, getPurchasedProducts }

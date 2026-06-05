@@ -1,4 +1,4 @@
-const prisma = require('../config/db')
+ const prisma = require('../config/db')
 
 const createOrder = async (userId) => {
   const cart = await prisma.cart.findUnique({
@@ -43,4 +43,38 @@ const getOrdersByUser = async (userId) => {
   })
 }
 
-module.exports = { createOrder, getOrdersByUser }
+const updateStatus = async (orderId, status) => {
+  return await prisma.order.update({
+    where: { id: orderId },
+    data: { status }
+  })
+}
+
+const getPurchasedProducts = async (userId) => {
+  const orders = await prisma.order.findMany({
+    where: { 
+      userId, 
+      status: 'paid' 
+    },
+    include: { 
+      items: { 
+        include: { product: true } 
+      } 
+    },
+    orderBy: { createdAt: 'desc' }
+  })
+  
+  const products = orders.flatMap(order => 
+    order.items.map(item => ({
+      product: item.product,
+      quantity: item.quantity,
+      price: item.price,
+      purchasedAt: order.createdAt,
+      orderId: order.id
+    }))
+  )
+  
+  return products
+}
+
+module.exports = { createOrder, getOrdersByUser, updateStatus, getPurchasedProducts }

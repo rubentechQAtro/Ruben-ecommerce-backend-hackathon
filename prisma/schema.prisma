@@ -86,3 +86,5 @@ model OrderItem {
   order   Order   @relation(fields: [orderId], references: [id])
   product Product @relation(fields: [productId], references: [id])
 }
+
+/// utilzar sola tabla para carrito y orden, agregar tipo en esa nueva tabla puede ser del tipo orden pedido se transforma en boleta

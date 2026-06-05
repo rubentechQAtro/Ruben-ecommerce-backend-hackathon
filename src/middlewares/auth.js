@@ -26,3 +26,6 @@ const adminMiddleware = (req, res, next) => {
 }
 
 module.exports = { authMiddleware, adminMiddleware }
+
+// implementar admin middleware
+
